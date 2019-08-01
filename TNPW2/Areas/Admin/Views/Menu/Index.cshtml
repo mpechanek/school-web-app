@@ -1,0 +1,24 @@
+﻿@model DataAccess.Model.HokejistiUser
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+@if (Model.Role.Identificator == "redaktor")
+{
+    <li><a href="@Url.Action("Index","Players")"class="text-white">Správa hráčů</a></li>
+    <li><a href="@Url.Action("Index","Vstupenky")"class="text-white">Přehled vstupenek</a></li>
+}
+else if (Model.Role.Identificator == "trener")
+{
+    <li><a href="@Url.Action("Index","Players")"class="text-white">Editace hráčů</a></li>
+
+}
+
+<li><a href="@Url.Action("Index", "Home", new
+         {@area = ""})" class="text-white">Hlavní strana</a></li>
+
+<li><a href="@Url.Action("Logout", "Login")"class="text-white">Odhlášení</a></li>
+
+
+

@@ -1,0 +1,37 @@
+﻿@model DataAccess.Model.Hokejista
+@{
+    ViewBag.Title = "Detail";
+}
+
+<h2>Detail hráče @Model.Jmeno</h2>
+<p>
+    @if (!string.IsNullOrEmpty(@Model.ImageName))
+    {
+        <img src="@Url.Content("~/uploads/hokejista/" + @Model.ImageName)" />
+    }
+</p>
+
+<p>
+    Tým: @Model.Tym
+</p>
+
+<p>
+    Rok Narození: @Model.DatumNarozeni
+</p>
+
+@Html.Raw(Model.Popis)
+
+<!--@if (ViewBag.ZobrazPopis != null && ViewBag.ZobrazPopis == true)
+{
+    <p>
+        Blizsi popis knihy...
+    </p>
+}
+    -->
+<!--section SideBar
+    {
+    <h4>Chcete knihu o @Model.Jmeno s 10% slevou? Objednejte nyní!!!</h4>
+    
+}-->
+
+

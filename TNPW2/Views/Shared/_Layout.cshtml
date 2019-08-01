@@ -1,0 +1,137 @@
+﻿
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.5">
+    <title>Statistiky hokejistů</title>
+
+    <!-- Bootstrap core CSS -->
+
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>*@
+    <script src="@Url.Content("~/Scripts/jquery-3.3.1.min.js")"></script>
+
+    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet">
+    @* <link href="@Url.Content("~/Content/bootstrap-theme.min.css")" rel="stylesheet">*@
+    <link href="@Url.Content("~/Content/blog.css")" rel="stylesheet">
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/MicrosoftAjax.js")"></script>
+    <script src="@Url.Content("~/Scripts/MicrosoftMvcAjax.js")"></script>
+    <script src="@Url.Content("~/Scripts/modernizr-2.8.3.js")"></script>
+
+
+
+
+
+</head>
+<body>
+    <div class="container">
+        <header class="blog-header py-3">
+            <div class="row flex-nowrap justify-content-between align-items-center">
+                <div class="col-2 pt-1">
+                    <a class="p-2 text-muted bold" href="@Url.Action("Index", "Home")">Home</a>
+                </div>
+                <div class="col-5 text-center">
+                    <a class="blog-header-logo text-dark" href="#">Statistiky hokejových hráčů</a>
+                </div>
+                <div class="col-4 d-flex justify-content-end align-items-center">
+
+                    @*<a class="text-muted" href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-3" focusable="false" role="img"><title>Vyhledat hráče</title><circle cx="10.5" cy="10.5" r="7.5"></circle><line x1="21" y1="21" x2="15.8" y2="15.8"></line></svg>
+                    </a>*@
+                    <a class="btn btn-sm btn-outline-secondary" href="@Url.Action("Index", "Login", new {area = "Admin"})">Přihlášení uživatele</a>
+                   <a class="btn btn-sm btn-outline-secondary" href=@Url.Action("Index", "Registration", new { area = "" })>Registrace</a>
+                </div>
+            </div>
+        </header>
+
+        <div class="nav-scroller py-1 mb-2">
+            <nav class="nav d-flex justify-content-between">
+                <p class="p-2 text-muted bold">Hokejové ligy:</p>
+                <a class="p-2 text-white btn btn-secondary" href="@Url.Action("League", "Players", new {@id = "1"})">Tipsport Extraliga</a>
+                <!-- <a class="p-2 text-muted" href="@Url.Action("Logout", "Login")">Odhlášení</a>-->
+                <a class="p-2 text-white btn btn-secondary" href="@Url.Action("League", "Players", new { @id = "2" })">Chance liga (1. liga)</a>
+                <a class="p-2 text-white btn btn-secondary" href="@Url.Action("League", "Players", new { @id = "4" })">2. česká hokejová liga</a>
+                <a class="p-2 text-white btn btn-secondary" href="@Url.Action("League", "Players", new { @id = "8" })">Krajská liga</a>
+             
+            </nav>
+        </div>
+
+        <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
+            <div class=" px-0">
+                <h1 class="display-4 font-italic">Vítejte na stránkách sloužících k přehledu statistik hokejových hráčů.</h1>
+                <img class="mb-4" src="~/uploads/layoutPhoto2.jpg" alt="" width="1000" height="400">
+               
+            </div>
+        </div>
+
+       
+    </div>
+
+    <main role="main" class="container">
+        <div class="row">
+            <div class="col-md-8 blog-main">
+
+                @if (TempData["message-success"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        @TempData["message-success"]
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                }
+
+
+                @RenderBody()
+
+
+            </div><!-- /.blog-main -->
+
+            <aside class="col-md-4 blog-sidebar">
+                <div class="p-3 mb-3 rounded">
+                    <h4 class="font-italic">Celkové statistiky hřáčů</h4>
+                    <div class="list-unstyled mb-0">
+
+                        <a class="btn btn-block btn-success" href="@Url.Action("Sort", "Players", new {@orderColumn = "PocetBodu", @asc = false})">Počet kanadských bodů ↑</a>
+                        <a class="btn btn-block btn-danger" href="@Url.Action("Sort", "Players", new {@orderColumn = "PocetBodu", @asc = true})">Počet kanadských bodů ↓</a>
+                        <a class="btn btn-block btn-dark" href="@Url.Action("Sort", "Players", new {@orderColumn = "DatumNarozeni", @asc = false})">Datum narození ↑</a>
+                        <a class="btn btn-block btn-dark" href="@Url.Action("Sort", "Players", new {@orderColumn = "DatumNarozeni", @asc = true})">Datum narození ↓</a>
+                        <a class="btn btn-info btn-block" href="@Url.Action("Post", "Players", new {@id = "3"})">Obránci </a>
+                        <a class="btn btn-warning btn-block " href="@Url.Action("Post", "Players", new {@id = "9"})">Útočníci </a>
+
+                    </div>
+
+                    @RenderSection("SideBar", false)
+
+
+                </div>
+
+               
+
+               
+            </aside><!-- /.blog-sidebar -->
+
+        </div><!-- /.row -->
+
+    </main><!-- /.container -->
+
+<footer class="blog-footer">
+    
+
+    <p>
+        <a href="#">Zpět nahoru</a>
+    </p>
+    <p>&copy; @DateTime.Now.Year - Milan Pechánek</p>
+</footer>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+    <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+
+</body>
+</html>

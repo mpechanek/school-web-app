@@ -1,0 +1,31 @@
+﻿<h1>Lední hokej</h1>
+<p>Lední hokej (zkráceně také jen hokej) je týmový sport hraný na ledě. Jde o jeden
+    z nejrychlejších sportů na světě. Hráči na bruslích dosahují vysokých rychlostí a vystřelený puk někdy přesáhne i rychlost 175 km/h.
+<p> Hraje se na hokejovém hřišti, kde nastoupí na lední plochu šest hráčů za každý tým, všichni hráči mají brusle a hokejky. Cílem hry je vstřelit více gólů než soupeř. 
+</p>
+<p>Hraje se malým, tvrdým gumovým kotoučem, který se nazývá puk. Hráči kontrolují puk dlouhými holemi s čepelí tzv. hokejkami. Hokejka je na svém dolním konci zahnutá. Hráči také mohou měnit směr pohybu puku svým tělem, včetně rukou či bruslí. Platné jsou dvě výjimky. První je zákaz přihrát rukou puk svému spoluhráči mimo obranné pásmo. A za druhé nesmějí vstřelit puk do branky úmyslně čímkoliv jiným než hokejkou. Jeden z šesti hráčů je brankář, jehož hlavním úkolem je nepustit puk do branky.
+   
+<p>Brankář má speciální vybavení a má zvláštní práva, jako je možnost přikrýt puk a tím zastavit hru. Každý tým může mít v zápise (na soupisce jich může mít ovšem neomezeně) maximálně 22 hráčů, z nichž 2 jsou brankáři. Střídání hráčů je možno kdykoliv během hry s jednou výjimkou. Mužstvo, které vyhodí puk na zakázané uvolnění neboli icing nesmí před opětovným zahájením hry vystřídat.</p>
+
+    Zbylých pět hráčů se dělí na tři útočníky a dva obránce. Útočnické pozice jsou levé křídlo, střední útočník a pravé křídlo. Útočníci spolu většinou hrají v útočných řadách (hovorově lajnách), kde jsou vždy tři útočníci spolu. Často se vyměňuje celá pětka hráčů najednou. Optimální délka jednoho střídání je 40 sekund. Většina týmů hraje na čtyři útočné řady a tři obranné dvojice. To se však může v různých zemích lišit.</p>
+@*<div id="ajaxContent">
+
+</div>*@
+
+
+@*<a href="#" onclick="getAjaxContent()">Ajax Request</a>
+
+
+<script type="text/javascript">
+
+    function getAjaxContent() {
+
+        $(document).ready(function () {
+
+            $.get('@Url.Action("AjaxRequest","Home")', function (data) {
+                $("#ajaxContent").html(data);
+            });
+        });
+       
+    }
+</script>*@

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="DataAccess" namespace="DataAccess.Model">
+
+  <class name="Hokejista" table="hokejista">
+    <id name="Id" column="id">
+      <generator class="native" />
+    </id>
+    <property name="Jmeno" column="jmeno"/>
+    <property name="Tym" column="tym" />
+    <property name="DatumNarozeni" column="datum_narozeni" />
+    <property name="Popis" column="popis" />
+    <property name="ImageName" column="image_name" />
+    <many-to-one name="Liga" column="liga_id" foreign-key="liga_id" />
+    <property name="PocetBodu" column="pocet_bodu" />
+    <many-to-one name="Post" column="post_id" foreign-key="post_id" />
+
+
+
+  </class>
+
+</hibernate-mapping>

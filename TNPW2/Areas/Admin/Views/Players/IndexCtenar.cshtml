@@ -1,0 +1,153 @@
+﻿@using DataAccess.Model
+@model IList<Hokejista>
+@{
+    ViewBag.Title = "Index";
+
+
+
+}
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">Karta hráče</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modalContent">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Zavřít</button>
+                <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+            </div>
+        </div>
+    </div>
+</div>
+<!--<p>Dnes je @ViewBag.Datum</p>-->
+<h1>Výpis hráčů</h1>
+
+
+
+
+
+<div class="clearfix"></div>
+
+<div>
+    <div class="panel-body">
+        @using (Ajax.BeginForm("Search", new AjaxOptions() { UpdateTargetId = "dynamicContent", InsertionMode = InsertionMode.Replace }))
+        {
+        <input type="text" class="form-control" placeholder="Vyhledat hráče" id="searchBox" name="phrase"/>
+        <input type="submit" value="Hledat" class="btn btn-lg btn-outline-secondary"/>
+        }
+    </div>
+</div>
+
+<div class="panel">
+    <div class="panel-body">
+        @if (ViewBag.Leagues != null)
+        {
+            foreach (HokejistaLiga hokejistaLiga in ViewBag.Leagues)
+            {
+      
+            <a href="@Url.Action("League", "Players", new { id = hokejistaLiga.Id })" class="btn btn-lg btn-outline-info my-3  ">@hokejistaLiga.Nazev</a>
+        
+            }
+        }
+    </div>
+</div>
+
+<table class=" table table-bordered table-hover table-condensed">
+    <thead>
+        <tr>
+            <th>Obrázek</th>
+            <!--<th>Id</th>-->
+            <th>Jmeno hrace</th>
+            <th>Tym</th>
+            <th>Rok narozeni</th>
+            <th>Post</th>
+            <th>Počet bodů</th>
+            <th>Edit</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Hokejista h in Model)
+        {
+        <tr>
+            <td>
+                @if (!string.IsNullOrEmpty(h.ImageName))
+                {
+                    <img src="@Url.Content("~/uploads/hokejista/" + h.ImageName)" />
+                }
+            </td>
+            <!--<td><a href="@Url.Action("Detail", "Players", new { id = h.Id })">@h.Id</a></td>-->
+            <td>
+                @Ajax.ActionLink(h.Jmeno, "Detail", new{id=h.Id}, new AjaxOptions(){UpdateTargetId ="modalContent", InsertionMode = InsertionMode.Replace, OnBegin = "openModalWindow"})
+                </td>
+            <td>@h.Tym</td>
+            <td>@h.DatumNarozeni</td>
+            <td>@h.Post.Nazev</td>
+            <td>@h.PocetBodu</td>
+            <td>
+                @Html.ActionLink("Editovat", "EditTrener", "Players", new { id = h.Id }, null)
+
+            </td>
+
+        </tr>
+        }
+    </tbody>
+
+</table>
+
+<div class="clearfix"></div>
+
+@if (ViewBag.Pages != null)
+{
+    <nav aria-label="...">
+        <ul class="pagination">
+
+            
+
+            @for (int i = 1; i <= ViewBag.Pages; i++)
+            {
+                <li class="@(ViewBag.CurrentPage == i ? "active" : "")" aria-current="page">
+                    <a class="page-link" href="@Url.Action("Index","Players",new {page=i})">@i</a>
+                </li>
+            }
+
+
+        </ul>
+    </nav>
+}
+
+<script type="text/javascript">
+    $(function () {
+      
+
+        $("#searchBox").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '@Url.Action("SearchPlayers","Players")',
+                    dataType: "json",
+                    data: {
+                        query: request.term
+                    },
+                    success: function (data) {
+                        response(data);
+                    }
+                });
+            },
+            minLength: 2
+           
+        });
+    });
+</script>
+<script type="text/javascript">
+    function openModalWindow() {
+        $('#myModal').modal({
+            show: true
+        });
+    }
+</script>
+
